@@ -35,5 +35,5 @@ It demonstrates how different memory allocation algorithms affect memory utiliza
 In development.
 
 ## Team
-Shloke Ghoshal 
-Prasit Raithatha
+- Shloke Ghoshal 
+- Prasit Raithatha
