@@ -1,14 +1,10 @@
-#include <iostream>
-
-#include "Process.h"
-#include "MemoryBlock.h"
-#include "MemoryAllocator.h"
-
-using namespace std;
+#include "Simulator.h"
 
 int main()
 {
-    cout << "Memory Allocation Simulator" << endl;
+    Simulator simulator(1000);
+
+    simulator.run();
 
     return 0;
 }
