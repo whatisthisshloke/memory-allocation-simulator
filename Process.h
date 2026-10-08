@@ -8,18 +8,18 @@ private:
     int size;
 
 public:
-    Process(int id, int s)
+    Process(int id, int s) //Process Constructor
     {
         pid = id;
         size = s;
     }
 
-    int getPid()
+    int getPid() //Retreiving Process ID
     {
         return pid;
     }
 
-    int getSize()
+    int getSize() //Retreiving Process Size
     {
         return size;
     }
