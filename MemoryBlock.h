@@ -1,7 +1,7 @@
 #ifndef MEMORYBLOCK_H
 #define MEMORYBLOCK_H
 
-#include "memoryAllocator.h"
+#include "MemoryAllocator.h"
 #include "process.h"
 
 class MemoryBlock
@@ -41,11 +41,12 @@ public:
             false;
         }
     }
+    void allocate(int pid, int reqSize){
+        processId = pid;
+        size = reqSize;
+        return;
+    }
     void free(){
-        if (processId == -1){
-            cout << "The Block is already free";
-            return;
-        }
         size = 0;
         processId = -1;
     }

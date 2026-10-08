@@ -1,14 +1,14 @@
 #ifndef PROCESS_H
 #define PROCESS_H
 
-class process
+class Process
 {
 private:
     int pid;
     int size;
 
 public:
-    process(int id, int s)
+    Process(int id, int s)
     {
         pid = id;
         size = s;
