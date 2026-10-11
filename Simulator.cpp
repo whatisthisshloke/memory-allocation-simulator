@@ -113,7 +113,7 @@ void Simulator::allocateProcess()
 
     for(Process& p : processes){
         if(p.getPid() == pid){
-            if(allocator->allocate(p)){
+            if(allocator->allocate(p, memory)){
                 cout<<"Memory allocated successfully for Process "<<pid<<"\n";
             } else {
                 cout<<"Memory allocation failed for Process "<<pid<<"\n";
