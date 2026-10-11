@@ -9,15 +9,11 @@
 class firstFit : public MemoryAllocator
 {
 public:
-<<<<<<< HEAD
     bool allocate(
         Process p,
         std::vector<MemoryBlock>& memory,
         int *nextIndex
     ) override
-=======
-    bool allocate(Process p, std::vector<MemoryBlock>& memory) override
->>>>>>> 806ed820c14a26fdc743d7ceb3ad7232ce0f32c1
     {
         for (int i = 0; i < (int)memory.size(); i++){
             if (memory[i].getProcessId() == -1 && memory[i].getSize() >= p.getSize()){
