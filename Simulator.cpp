@@ -1,5 +1,8 @@
 #include "Simulator.h"
-
+#include "firstFit.h"
+#include "worstFit.h"
+#include "bestFit.h"
+#include "nextFit.h"
 #include <iostream>
 
 using namespace std;
@@ -125,4 +128,91 @@ void Simulator::allocateProcess()
 
     cout<<"Process not found!!\n";
 }
+
+void Simulator::deallocateProcess()
+{
+    if(allocator==nullptr){
+        cout<<"Please select an algorithm first!!\n";
+        return;
+    }
+
+    int pid;
+    cout<<"Enter Process ID to deallocate memory:";
+    cin>>pid;
+
+    for(Process& p : processes){
+        if(p.getPid()== pid){
+            if(allocator->deallocate(p, memory)){
+                cout<<"Process deallocated successfully!!\n";
+            }else{
+                cout<<"Process is not currently allocated!!\n";
+            }
+
+            return;
+        }
+        
+        cout<<"Process not found";
+    }
+}
+
+void Simulator::displayMemory(){
+    if(allocator==nullptr){
+        cout<<"Please select an algorithm first!!\n";
+        return;
+    }
+
+    cout << "\n========== MEMORY MAP ==========\n"; 
+    cout << "Start\tSize\tStatus\n"; 
+    cout << "-------------------------------\n";
+
+    for(MemoryBlock& blk : memory){
+        cout<<blk.getStart()<<"\t";
+        cout<<blk.getSize()<<"\t";
+        
+        if(blk.getProcessId()==-1){
+             cout<<"Free";
+        }else{
+            cout<<"P"<<blk.getProcessId();
+        }
+
+        cout<<endl;
+    }
+    cout << "================================\n";
+}
+
+void Simulator::showStatistics(){
+    
+    int totalMemory;
+    int used=0;
+    int freeMemory=0;
+    int freeBlocks=0;
+    int largestFreeBlock=0;
+
+    for(MemoryBlock& blk : memory){
+        if(blk.getProcessId()==-1){
+            freeMemory += blk.getSize();
+            freeBlocks++;
+        }
+
+        if(blk.getSize()>largestFreeBlock){
+            largestFreeBlock=blk.getSize();
+        }else{
+            used+=blk.getSize();
+        }
+    }   
+
+    cout << "\n======= MEMORY STATISTICS =======\n"; 
+    cout << "Total Memory : " << totalMemory << " KB\n"; 
+    cout << "Used Memory : " << used << " KB\n"; 
+    cout << "Free Memory : " << freeMemory << " KB\n"; 
+    cout << "Free Blocks : " << freeBlocks << "\n"; 
+    cout << "Largest Free Block : " << largestFreeBlock << " KB\n"; 
+    if (totalMemory > 0) { 
+    double utilization = (double)used / totalMemory * 100; 
+    cout << "Memory Utilization : " << utilization << "%\n";  
+    cout << "=================================\n"; 
+    }
+}
+
+
 

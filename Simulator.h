@@ -12,6 +12,7 @@ private:
     MemoryAllocator* allocator;
 
     std::vector<Process> processes;
+    std::vector<MemoryBlock> memory;
 
     void showMenu();
 
