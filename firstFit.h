@@ -17,9 +17,7 @@ public:
                 int originalSize = memory[i].getSize();
                 int processSize = p.getSize();
 
-                MemoryBlock allocated(
-                    start, processSize, p.getPid()
-                );
+                MemoryBlock allocated(start, processSize, p.getPid());
                 memory[i] = allocated;
 
                 if (originalSize > processSize)
@@ -37,10 +35,7 @@ public:
         return false;
     }
 
-    bool deallocate(
-        Process p,
-        std::vector<MemoryBlock>& memory
-    ) override
+    bool deallocate(Process p,std::vector<MemoryBlock>& memory) override
     {
         bool found = false;
 
@@ -48,11 +43,7 @@ public:
         {
             if (memory[i].getProcessId() == p.getPid())
             {
-                memory[i] = MemoryBlock(
-                    memory[i].getStart(),
-                    memory[i].getSize(),
-                    -1
-                );
+                memory[i] = MemoryBlock(memory[i].getStart(),memory[i].getSize(),-1);
                 found = true;
                 break;
             }
