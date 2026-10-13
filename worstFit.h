@@ -7,7 +7,7 @@
 #include <vector>
 #include <algorithm>
 
-class firstFit : public MemoryAllocator {
+class worstFit : public MemoryAllocator {
 public:
     public:
     bool allocate(

@@ -6,7 +6,7 @@
 #include "MemoryAllocator.h"
 #include <vector>
 
-class firstFit : public MemoryAllocator {
+class nextFit : public MemoryAllocator {
 public:
     bool allocate(
         Process p,
