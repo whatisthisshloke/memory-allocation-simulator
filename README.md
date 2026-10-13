@@ -231,5 +231,5 @@ Potential enhancements include:
 
 ## Contributors
 
-- [Shloke Ghoshal]
-- [Prasit Raithatha]
+- **Shloke Ghoshal**
+- **Prasit Raithatha**
