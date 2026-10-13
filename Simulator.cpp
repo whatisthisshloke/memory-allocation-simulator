@@ -214,5 +214,51 @@ void Simulator::showStatistics(){
     }
 }
 
+void Simulator::changeAlgorithm()
+{
+    int choice;
+
+    cout << "\n===== SELECT ALLOCATION ALGORITHM =====\n";
+    cout << "1. First Fit\n";
+    cout << "2. Best Fit\n";
+    cout << "3. Worst Fit\n";
+    cout << "4. Next Fit\n";
+    cout << "Enter your choice: ";
+
+    cin >> choice;
+
+    if (choice < 1 || choice > 4)
+    {
+        cout << "Invalid algorithm choice.\n";
+        return;
+    }
+
+    delete allocator;
+    allocator = nullptr;
+
+    switch (choice)
+    {
+        case 1:
+            allocator = new firstFit();
+            cout << "First Fit selected.\n";
+            break;
+
+        case 2:
+            allocator = new bestFit();
+            cout << "Best Fit selected.\n";
+            break;
+
+        case 3:
+            allocator = new worstFit();
+            cout << "Worst Fit selected.\n";
+            break;
+
+        case 4:
+            allocator = new nextFit();
+            cout << "Next Fit selected.\n";
+            break;
+    }
+}
+
 
 
