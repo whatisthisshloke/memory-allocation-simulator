@@ -1,9 +1,10 @@
+#include <iostream>
 #include "Simulator.h"
 #include "firstFit.h"
 #include "worstFit.h"
 #include "bestFit.h"
 #include "nextFit.h"
-#include <iostream>
+
 
 using namespace std;
 
@@ -35,7 +36,11 @@ void Simulator::showMenu()
     cout << "====================================\n";
 }
 
-void Simulator::run()
+void Simulator::run(
+    vector<MemoryBlock>& memory,
+    Process p,
+    int* nextptr
+)
 {
     int choice;
     
@@ -50,10 +55,10 @@ void Simulator::run()
                 createProcess();
                 break;
             case 2:
-                allocateProcess();
+                allocateProcess(nextptr);
                 break;
             case 3:
-                deallocateProcess();
+                deallocateProcess(nextptr);
                 break;
             case 4:
                 displayMemory();
@@ -62,7 +67,8 @@ void Simulator::run()
                 showStatistics();
                 break;
             case 6:
-                changeAlgorithm();
+                Process *p = createProcess();
+                changeAlgorithm(memory, *p, nextptr);
                 break;
             case 7:
                 cout<<"Exiting simulator!!\n";
@@ -75,7 +81,7 @@ void Simulator::run()
 
 }
 
-void Simulator::createProcess()
+Process* Simulator::createProcess()
 {
     int pid;
     int size;
@@ -101,9 +107,10 @@ void Simulator::createProcess()
     processes.push_back(p);  //push_back helps append at the end of a vector
 
     cout<<"Process created successfully!!\n";
+    return &p;
 }
 
-void Simulator::allocateProcess()
+void Simulator::allocateProcess(int* nextptr)
 {
     if(allocator==nullptr){
         cout<<"Please select an algorithm first!!\n";
@@ -116,7 +123,7 @@ void Simulator::allocateProcess()
 
     for(Process& p : processes){
         if(p.getPid() == pid){
-            if(allocator->allocate(p, memory)){
+            if(allocator->allocate(p, memory, nextptr)){
                 cout<<"Memory allocated successfully for Process "<<pid<<"\n";
             } else {
                 cout<<"Memory allocation failed for Process "<<pid<<"\n";
@@ -129,7 +136,7 @@ void Simulator::allocateProcess()
     cout<<"Process not found!!\n";
 }
 
-void Simulator::deallocateProcess()
+void Simulator::deallocateProcess(int* nextptr)
 {
     if(allocator==nullptr){
         cout<<"Please select an algorithm first!!\n";
@@ -142,7 +149,7 @@ void Simulator::deallocateProcess()
 
     for(Process& p : processes){
         if(p.getPid()== pid){
-            if(allocator->deallocate(p, memory)){
+            if(allocator->deallocate(p, memory, nextptr)){
                 cout<<"Process deallocated successfully!!\n";
             }else{
                 cout<<"Process is not currently allocated!!\n";
@@ -170,6 +177,7 @@ void Simulator::displayMemory(){
         cout<<blk.getSize()<<"\t";
         
         if(blk.getProcessId()==-1){
+            cout<<"Free";
             cout<<"Free";
         }else{
             cout<<"P"<<blk.getProcessId();
@@ -214,7 +222,11 @@ void Simulator::showStatistics(){
     }
 }
 
-void Simulator::changeAlgorithm()
+void Simulator::changeAlgorithm(
+    vector<MemoryBlock>& memory,
+    Process p,
+    int* nextptr
+)
 {
     int choice;
 
@@ -239,22 +251,26 @@ void Simulator::changeAlgorithm()
     switch (choice)
     {
         case 1:
-            allocator = new firstFit();
+            firstFit* newFirst;
+            newFirst->allocate(p, memory, nextptr);
             cout << "First Fit selected.\n";
             break;
 
         case 2:
-            allocator = new bestFit();
+            bestFit* newBest;
+            newBest->allocate(p, memory, nextptr);
             cout << "Best Fit selected.\n";
             break;
 
         case 3:
-            allocator = new worstFit();
+            worstFit* newWorst;
+            newWorst->allocate(p, memory, nextptr);
             cout << "Worst Fit selected.\n";
             break;
 
         case 4:
-            allocator = new nextFit();
+            nextFit* newNext;
+            newNext->allocate(p, memory, nextptr);
             cout << "Next Fit selected.\n";
             break;
     }

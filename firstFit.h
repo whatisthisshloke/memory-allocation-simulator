@@ -21,9 +21,7 @@ public:
                 int originalSize = memory[i].getSize();
                 int processSize = p.getSize();
 
-                MemoryBlock allocated(
-                    start, processSize, p.getPid()
-                );
+                MemoryBlock allocated(start, processSize, p.getPid());
                 memory[i] = allocated;
 
                 if (originalSize > processSize)

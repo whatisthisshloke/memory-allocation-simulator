@@ -4,6 +4,8 @@
 #include "Process.h"
 #include "MemoryBlock.h"
 #include "MemoryAllocator.h"
+#include "Simulator.h"
+#include "SimulatorRunner.h"
 
 using namespace std;
 
