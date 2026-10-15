@@ -1,0 +1,516 @@
+PS D:\REDEMPTION!!\Projects\C_Cpp\memory_allocator_project\memory-allocation-simulator> cd "d:\REDEMPTION!!\Projects\C_Cpp\memory_allocator_project\memory-allocation-simulator\" ; if ($?) { g++ main.cpp -o main } ; if ($?) { .\main }
+***Memory Allocation Simulator***
+ Enter the total Memory: 1000
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 1
+
+Enter Process ID: 1
+Enter Process Size (in KB): 200
+Process created successfully!!
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 1
+
+Enter Process ID: 2
+Enter Process Size (in KB): 450
+Process created successfully!!
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 1
+
+Enter Process ID: 3
+Enter Process Size (in KB): 100
+Process created successfully!!
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 1
+
+Enter Process ID: 4
+Enter Process Size (in KB): 200
+Process created successfully!!
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 6
+
+===== SELECT ALLOCATION ALGORITHM =====
+1. First Fit
+2. Best Fit
+3. Worst Fit
+4. Next Fit
+Enter your choice: 1
+First Fit selected.
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 2
+
+Enter Process ID to allocate memory: 1
+Memory allocated successfully for Process 1
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 2
+
+Enter Process ID to allocate memory: 2
+Memory allocated successfully for Process 2
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 2
+
+Enter Process ID to allocate memory: 3
+Memory allocated successfully for Process 3
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 2
+
+Enter Process ID to allocate memory: 4
+Memory allocated successfully for Process 4
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 3
+
+Enter Process ID to deallocate memory: 2
+Process deallocated successfully!!
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 4
+
+========== MEMORY MAP ==========
+Start   Size    Status
+-------------------------------
+0       200     P1
+200     450     FREE
+650     100     P3
+750     200     P4
+950     50      FREE
+================================
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 3
+
+Enter Process ID to deallocate memory: 4
+Process deallocated successfully!!
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 4
+
+========== MEMORY MAP ==========
+Start   Size    Status
+-------------------------------
+0       200     P1
+200     450     FREE
+650     100     P3
+750     250     FREE
+================================
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 1
+
+Enter Process ID: 4
+Enter Process Size (in KB): 200
+Process already exists!!
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 6
+
+===== SELECT ALLOCATION ALGORITHM =====
+1. First Fit
+2. Best Fit
+3. Worst Fit
+4. Next Fit
+Enter your choice: 4
+Next Fit selected.
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 2
+
+Enter Process ID to allocate memory: 4
+Memory allocated successfully for Process 4
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 4
+
+========== MEMORY MAP ==========
+Start   Size    Status
+-------------------------------
+0       200     P1
+200     200     P4
+400     250     FREE
+650     100     P3
+750     250     FREE
+================================
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 3
+
+Enter Process ID to deallocate memory: 4
+Process deallocated successfully!!
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 1
+
+Enter Process ID: 4
+Enter Process Size (in KB): 200
+Process already exists!!
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 6
+
+===== SELECT ALLOCATION ALGORITHM =====
+1. First Fit
+2. Best Fit
+3. Worst Fit
+4. Next Fit
+Enter your choice: 3
+Worst Fit selected.
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 4
+
+========== MEMORY MAP ==========
+Start   Size    Status
+-------------------------------
+0       200     P1
+200     450     FREE
+650     100     P3
+750     250     FREE
+================================
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 2
+
+Enter Process ID to allocate memory: 4
+Memory allocated successfully for Process 4
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 4
+
+========== MEMORY MAP ==========
+Start   Size    Status
+-------------------------------
+0       200     P1
+200     200     P4
+400     250     FREE
+650     100     P3
+750     250     FREE
+================================
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 3
+
+Enter Process ID to deallocate memory: 4
+Process deallocated successfully!!
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 6
+
+===== SELECT ALLOCATION ALGORITHM =====
+1. First Fit
+2. Best Fit
+3. Worst Fit
+4. Next Fit
+Enter your choice: 2
+Best Fit selected.
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 2
+
+Enter Process ID to allocate memory: 4
+Memory allocated successfully for Process 4
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 4
+
+========== MEMORY MAP ==========
+Start   Size    Status
+-------------------------------
+0       200     P1
+200     450     FREE
+650     100     P3
+750     200     P4
+950     50      FREE
+================================
+
+====================================
+      MEMORY ALLOCATION SIMULATOR
+====================================
+1. Create Process
+2. Allocate Memory
+3. Deallocate Process
+4. Display Memory Map
+5. Memory Statistics
+6. Change Algorithm
+7. Exit
+====================================
+Enter your choice: 7
+Exiting simulator!!
+PS D:\REDEMPTION!!\Projects\C_Cpp\memory_allocator_project\memory-allocation-simulator>                                                                                                                                                                          
