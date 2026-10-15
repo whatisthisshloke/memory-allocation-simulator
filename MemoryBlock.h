@@ -1,9 +1,6 @@
 #ifndef MEMORYBLOCK_H
 #define MEMORYBLOCK_H
 
-#include "MemoryAllocator.h"
-#include "process.h"
-
 class MemoryBlock
 {
 private:
@@ -12,42 +9,41 @@ private:
     int processId;
 
 public:
-    MemoryBlock(int s, int sz, int pid=-1)
+    MemoryBlock(int s = 0, int sz = 0, int pid = -1)
     {
         start = s;
         size = sz;
         processId = pid;
     }
 
-    int getStart()
+    int getStart() const
     {
         return start;
     }
 
-    int getSize()
+    int getSize() const
     {
         return size;
     }
 
-    int getProcessId()
+    int getProcessId() const
     {
         return processId;
     }
-    bool isFree (){
-        if (processId == -1){
-            return true;
-        }
-        else {
-            false;
-        }
+
+    bool isFree() const
+    {
+        return processId == -1;
     }
-    void allocate(int pid, int reqSize){
+
+    void allocate(int pid, int reqSize)
+    {
         processId = pid;
         size = reqSize;
-        return;
     }
-    void free(){
-        size = 0;
+
+    void free()
+    {
         processId = -1;
     }
 };

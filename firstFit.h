@@ -15,8 +15,10 @@ public:
         int *nextIndex
     ) override
     {
-        for (int i = 0; i < (int)memory.size(); i++){
-            if (memory[i].getProcessId() == -1 && memory[i].getSize() >= p.getSize()){
+        for (int i = 0; i < (int)memory.size(); i++)
+        {
+            if (memory[i].getProcessId() == -1 && memory[i].getSize() >= p.getSize())
+            {
                 int start = memory[i].getStart();
                 int originalSize = memory[i].getSize();
                 int processSize = p.getSize();
@@ -33,13 +35,15 @@ public:
                     );
                     memory.insert(memory.begin() + i + 1, freeBlock);
                 }
-                *nextIndex = i;
+                if (nextIndex)
+                {
+                    *nextIndex = i;
+                }
                 return true;
             }
         }
         return false;
     }
-
 };
 
 #endif

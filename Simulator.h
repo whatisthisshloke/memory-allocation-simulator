@@ -1,6 +1,8 @@
 #ifndef SIMULATOR_H
 #define SIMULATOR_H
 
+#include "Process.h"
+#include "MemoryBlock.h"
 #include "MemoryAllocator.h"
 #include <vector>
 
@@ -28,15 +30,15 @@ private:
     );
 
 public:
-    Simulator(int memory){
+    Simulator(int Memory);
+    ~Simulator();
 
-    };
+    Simulator(const Simulator&) = delete;
+    Simulator& operator=(const Simulator&) = delete;
 
     void run(
         int* nextptr
     );
-
-    ~Simulator();
 };
 
 #endif

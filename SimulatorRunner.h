@@ -1,3 +1,6 @@
+#ifndef SIMULATORRUNNER_H
+#define SIMULATORRUNNER_H
+
 #include <iostream>
 #include "Simulator.h"
 #include "firstFit.h"
@@ -5,18 +8,20 @@
 #include "bestFit.h"
 #include "nextFit.h"
 
-
 using namespace std;
 
-Simulator::Simulator(int memory)
+Simulator::Simulator(int memorySize)
 {
-    totalMemory = memory;
+    totalMemory = memorySize;
     allocator = nullptr;
+    MemoryBlock block(0, memorySize, -1);
+    memory.push_back(block);
 }
 
 Simulator::~Simulator()
 {
     delete allocator;
+    allocator = nullptr;
 }
 
 void Simulator::showMenu()
@@ -37,20 +42,23 @@ void Simulator::showMenu()
 }
 
 void Simulator::run(
-    vector<MemoryBlock>& memory,
     int* nextptr
 )
 {
-    Process* p;
     int choice;
     
     do {
         showMenu();
 
-        cout<<"Enter your choice:";
-        cin>>choice;
+        cout << "Enter your choice: ";
+        if (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid input!!\n";
+            continue;
+        }
 
-        switch(choice){
+        switch (choice) {
             case 1:
                 createProcess();
                 break;
@@ -67,144 +75,160 @@ void Simulator::run(
                 showStatistics();
                 break;
             case 6:
-                createProcess();
                 changeAlgorithm(nextptr);
                 break;
             case 7:
-                cout<<"Exiting simulator!!\n";
+                cout << "Exiting simulator!!\n";
                 break;  
             default:
-                cout<<"Invalid Choice!!\n";
-                
+                cout << "Invalid Choice!!\n";
         }
-    } while(choice!=7);
-
+    } while (choice != 7);
 }
 
-Simulator::createProcess()
+void Simulator::createProcess()
 {
     int pid;
     int size;
 
-    cout<<"\nEnter Process ID:";
-    cin>>pid;
-
-    cout<<"\n Enter Process Size(in KB):";
-    cin>>size;
-
-    if(pid<=0 || size<=0){
-        cout<<"Invalid input!!\n";
+    cout << "\nEnter Process ID: ";
+    if (!(cin >> pid)) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid input!!\n";
         return;
     }
 
-    for(Process& p : processes){
-        if(p.getPid()==pid);
-        cout<<"Process already exists!!\n";
+    cout << "Enter Process Size (in KB): ";
+    if (!(cin >> size)) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid input!!\n";
         return;
+    }
+
+    if (pid <= 0 || size <= 0) {
+        cout << "Invalid input!!\n";
+        return;
+    }
+
+    for (const Process& p : processes) {
+        if (p.getPid() == pid) {
+            cout << "Process already exists!!\n";
+            return;
+        }
     }
 
     Process p(pid, size);
-    processes.push_back(p);  //push_back helps append at the end of a vector
+    processes.push_back(p);
 
-    cout<<"Process created successfully!!\n";
+    cout << "Process created successfully!!\n";
 }
 
 void Simulator::allocateProcess(int* nextptr)
 {
-    if(allocator==nullptr){
-        cout<<"Please select an algorithm first!!\n";
+    if (allocator == nullptr) {
+        cout << "Please select an algorithm first!!\n";
         return;
     }
 
     int pid;
-    cout<<"\nEnter Process ID to allocate memory:";
-    cin>>pid;
+    cout << "\nEnter Process ID to allocate memory: ";
+    if (!(cin >> pid)) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid input!!\n";
+        return;
+    }
 
-    for(Process& p : processes){
-        if(p.getPid() == pid){
-            if(allocator->allocate(p, memory, nextptr)){
-                cout<<"Memory allocated successfully for Process "<<pid<<"\n";
-            } else {
-                cout<<"Memory allocation failed for Process "<<pid<<"\n";
-            }
-
+    for (const MemoryBlock& blk : memory) {
+        if (blk.getProcessId() == pid) {
+            cout << "Process " << pid << " is already allocated!!\n";
             return;
         }
     }
 
-    cout<<"Process not found!!\n";
+    for (Process& p : processes) {
+        if (p.getPid() == pid) {
+            if (allocator->allocate(p, memory, nextptr)) {
+                cout << "Memory allocated successfully for Process " << pid << "\n";
+            } else {
+                cout << "Memory allocation failed for Process " << pid << "\n";
+            }
+            return;
+        }
+    }
+
+    cout << "Process not found!!\n";
 }
 
 void Simulator::deallocateProcess(int* nextptr)
 {
-    if(allocator==nullptr){
-        cout<<"Please select an algorithm first!!\n";
+    if (allocator == nullptr) {
+        cout << "Please select an algorithm first!!\n";
         return;
     }
 
     int pid;
-    cout<<"Enter Process ID to deallocate memory:";
-    cin>>pid;
-
-    for(Process& p : processes){
-        if(p.getPid()== pid){
-            if(allocator->deallocate(p, memory, nextptr)){
-                cout<<"Process deallocated successfully!!\n";
-            }else{
-                cout<<"Process is not currently allocated!!\n";
-            }
-
-            return;
-        }
-        
-        cout<<"Process not found";
-    }
-}
-
-void Simulator::displayMemory(){
-    if(allocator==nullptr){
-        cout<<"Please select an algorithm first!!\n";
+    cout << "\nEnter Process ID to deallocate memory: ";
+    if (!(cin >> pid)) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid input!!\n";
         return;
     }
 
+    for (Process& p : processes) {
+        if (p.getPid() == pid) {
+            if (allocator->deallocate(p, memory, nextptr)) {
+                cout << "Process deallocated successfully!!\n";
+            } else {
+                cout << "Process is not currently allocated!!\n";
+            }
+            return;
+        }
+    }
+
+    cout << "Process not found!!\n";
+}
+
+void Simulator::displayMemory()
+{
     cout << "\n========== MEMORY MAP ==========\n"; 
     cout << "Start\tSize\tStatus\n"; 
     cout << "-------------------------------\n";
 
-    for(MemoryBlock& blk : memory){
-        cout<<blk.getStart()<<"\t";
-        cout<<blk.getSize()<<"\t";
+    for (const MemoryBlock& blk : memory) {
+        cout << blk.getStart() << "\t";
+        cout << blk.getSize() << "\t";
         
-        if(blk.getProcessId()==-1){
-            cout<<"Free";
-            cout<<"Free";
-        }else{
-            cout<<"P"<<blk.getProcessId();
+        if (blk.getProcessId() == -1) {
+            cout << "FREE";
+        } else {
+            cout << "P" << blk.getProcessId();
         }
 
-        cout<<endl;
+        cout << endl;
     }
     cout << "================================\n";
 }
 
-void Simulator::showStatistics(){
-    
-    int totalMemory;
-    int used=0;
-    int freeMemory=0;
-    int freeBlocks=0;
-    int largestFreeBlock=0;
+void Simulator::showStatistics()
+{
+    int used = 0;
+    int freeMemory = 0;
+    int freeBlocks = 0;
+    int largestFreeBlock = 0;
 
-    for(MemoryBlock& blk : memory){
-        if(blk.getProcessId()==-1){
+    for (const MemoryBlock& blk : memory) {
+        if (blk.getProcessId() == -1) {
             freeMemory += blk.getSize();
             freeBlocks++;
-        }
-
-        if(blk.getSize()>largestFreeBlock){
-            largestFreeBlock=blk.getSize();
-        }else{
-            used+=blk.getSize();
+            if (blk.getSize() > largestFreeBlock) {
+                largestFreeBlock = blk.getSize();
+            }
+        } else {
+            used += blk.getSize();
         }
     }   
 
@@ -215,19 +239,17 @@ void Simulator::showStatistics(){
     cout << "Free Blocks : " << freeBlocks << "\n"; 
     cout << "Largest Free Block : " << largestFreeBlock << " KB\n"; 
     if (totalMemory > 0) { 
-    double utilization = (double)used / totalMemory * 100; 
-    cout << "Memory Utilization : " << utilization << "%\n";  
-    cout << "=================================\n"; 
+        double utilization = (double)used / totalMemory * 100.0; 
+        cout << "Memory Utilization : " << utilization << "%\n";  
     }
+    cout << "=================================\n"; 
 }
 
 void Simulator::changeAlgorithm(
-    Process p,
     int* nextptr
 )
 {
     int choice;
-
     cout << "\n===== SELECT ALLOCATION ALGORITHM =====\n";
     cout << "1. First Fit\n";
     cout << "2. Best Fit\n";
@@ -235,10 +257,10 @@ void Simulator::changeAlgorithm(
     cout << "4. Next Fit\n";
     cout << "Enter your choice: ";
 
-    cin >> choice;
-
-    if (choice < 1 || choice > 4)
+    if (!(cin >> choice) || choice < 1 || choice > 4)
     {
+        cin.clear();
+        cin.ignore(10000, '\n');
         cout << "Invalid algorithm choice.\n";
         return;
     }
@@ -249,31 +271,25 @@ void Simulator::changeAlgorithm(
     switch (choice)
     {
         case 1:
-            firstFit* newFirst;
-            newFirst->allocate(p, memory, nextptr);
+            allocator = new firstFit();
             cout << "First Fit selected.\n";
             break;
-
         case 2:
-            bestFit* newBest;
-            newBest->allocate(p, memory, nextptr);
+            allocator = new bestFit();
             cout << "Best Fit selected.\n";
             break;
-
         case 3:
-            worstFit* newWorst;
-            newWorst->allocate(p, memory, nextptr);
+            allocator = new worstFit();
             cout << "Worst Fit selected.\n";
             break;
-
         case 4:
-            nextFit* newNext;
-            newNext->allocate(p, memory, nextptr);
+            allocator = new nextFit();
+            if (nextptr) {
+                *nextptr = 0;
+            }
             cout << "Next Fit selected.\n";
             break;
     }
 }
 
-
-
-
+#endif

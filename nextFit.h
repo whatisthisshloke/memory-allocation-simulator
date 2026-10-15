@@ -1,4 +1,4 @@
-#ifndef NEXRFIT_H
+#ifndef NEXTFIT_H
 #define NEXTFIT_H
 
 #include "Process.h"
@@ -14,8 +14,17 @@ public:
         int *nextIndex
     ) override
     {
-        for (int i = *nextIndex; i < (int)memory.size(); i++)
+        if (memory.empty()) return false;
+        int n = (int)memory.size();
+        int startIndex = 0;
+        if (nextIndex && *nextIndex >= 0 && *nextIndex < n)
         {
+            startIndex = *nextIndex;
+        }
+
+        for (int step = 0; step < n; step++)
+        {
+            int i = (startIndex + step) % n;
             if (memory[i].getProcessId() == -1 &&
                 memory[i].getSize() >= p.getSize())
             {
@@ -37,7 +46,10 @@ public:
                     );
                     memory.insert(memory.begin() + i + 1, freeBlock);
                 }
-                *nextIndex = i;
+                if (nextIndex)
+                {
+                    *nextIndex = i;
+                }
                 return true;
             }
         }

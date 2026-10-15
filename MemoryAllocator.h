@@ -10,7 +10,6 @@ class MemoryAllocator
 {
 public:
     virtual ~MemoryAllocator() = default;
-    
     virtual bool allocate(
         Process p, 
         std::vector<MemoryBlock>& memory,
@@ -44,7 +43,7 @@ public:
             return false;
         }
 
-        for (int i = 0; i < (int)memory.size() - 1; i++ )
+        for (int i = 0; i < (int)memory.size() - 1; )
         {
             if (memory[i].getProcessId() == -1 &&
                 memory[i + 1].getProcessId() == -1)
@@ -58,7 +57,6 @@ public:
                     combinedSize,
                     -1
                 );
-                *nextIndex = i;
 
                 memory.erase(memory.begin() + i + 1);
             }
@@ -67,52 +65,76 @@ public:
                 i++;
             }
         }
+
+        if (nextIndex && *nextIndex >= (int)memory.size())
+        {
+            *nextIndex = 0;
+        }
+
         return true;
     }
-    
 
-    int getTotalMemory(vector<MemoryBlock>& memory){
-        return 1000;
+    int getTotalMemory(const std::vector<MemoryBlock>& memory) const
+    {
+        int total = 0;
+        for (size_t i = 0; i < memory.size(); i++)
+        {
+            total += memory[i].getSize();
+        }
+        return total;
     }
-    int getUsedMemory(vector<MemoryBlock>& memory){
+
+    int getUsedMemory(const std::vector<MemoryBlock>& memory) const
+    {
         int used = 0;
-        for(int i = 0; i < (int)memory.size(); i++ ){
-            if(!memory[i].isFree()){
+        for (size_t i = 0; i < memory.size(); i++)
+        {
+            if (!memory[i].isFree())
+            {
                 used += memory[i].getSize();
             }
-            return used;
         }
+        return used;
     }
-    int getFreeMemory(vector<MemoryBlock>& memory){
+
+    int getFreeMemory(const std::vector<MemoryBlock>& memory) const
+    {
         int free = 0;
-        for(int i = 0; i < (int)memory.size(); i++ ){
-            if(memory[i].isFree()){
+        for (size_t i = 0; i < memory.size(); i++)
+        {
+            if (memory[i].isFree())
+            {
                 free += memory[i].getSize();
             }
-            return free;
         }
+        return free;
     }
-    int getFreeBlockCount(vector<MemoryBlock>& memory){
+
+    int getFreeBlockCount(const std::vector<MemoryBlock>& memory) const
+    {
         int freeCount = 0;
-        for(int i = 0; i < (int)memory.size(); i++ ){
-            if(memory[i].isFree()){
-                freeCount ++;
+        for (size_t i = 0; i < memory.size(); i++)
+        {
+            if (memory[i].isFree())
+            {
+                freeCount++;
             }
-            return freeCount;
         }
+        return freeCount;
     }
-    int getLargestFreeBlock(vector<MemoryBlock>& memory){
+
+    int getLargestFreeBlock(const std::vector<MemoryBlock>& memory) const
+    {
         int lSize = 0;
-        for(int i = 0; i < (int)memory.size(); i++ ){
-            if(!memory[i].isFree()){
-                lSize = max(memory[i].getSize(), lSize);
+        for (size_t i = 0; i < memory.size(); i++)
+        {
+            if (memory[i].isFree())
+            {
+                lSize = std::max(memory[i].getSize(), lSize);
             }
-            return lSize;
         }
+        return lSize;
     }
-
-    virtual const std::vector<MemoryBlock>& getMemoryBlocks(vector<MemoryBlock>& memory) const = 0;
-
 };
 
 #endif
