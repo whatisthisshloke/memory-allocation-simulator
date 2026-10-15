@@ -16,14 +16,14 @@ private:
 
     void showMenu();
 
-    void createProcess();
-    void allocateProcess();
-    void deallocateProcess();
+    void createProcess(int* nextptr);
+    void allocateProcess(int* nextptr);
+    void deallocateProcess(int* nextptr);
 
     void displayMemory();
     void showStatistics();
 
-    void changeAlgorithm();
+    void changeAlgorithm(int* nextptr);
 
 public:
     Simulator(int memory);
