@@ -52,23 +52,23 @@ void Simulator::run(
 
         switch(choice){
             case 1:
-                p = createProcess();
+                createProcess();
                 break;
             case 2:
-                allocateProcess(*p, nextptr);
+                allocateProcess(nextptr);
                 break;
             case 3:
-                deallocateProcess(*p, nextptr);
+                deallocateProcess(nextptr);
                 break;
             case 4:
-                displayMemory(memory);
+                displayMemory();
                 break;
             case 5:
-                showStatistics(memory);
+                showStatistics();
                 break;
             case 6:
-                p = createProcess();
-                changeAlgorithm(memory, *p, nextptr);
+                createProcess();
+                changeAlgorithm(nextptr);
                 break;
             case 7:
                 cout<<"Exiting simulator!!\n";
@@ -81,7 +81,7 @@ void Simulator::run(
 
 }
 
-Process* Simulator::createProcess()
+Simulator::createProcess()
 {
     int pid;
     int size;
@@ -107,7 +107,6 @@ Process* Simulator::createProcess()
     processes.push_back(p);  //push_back helps append at the end of a vector
 
     cout<<"Process created successfully!!\n";
-    return &p;
 }
 
 void Simulator::allocateProcess(int* nextptr)

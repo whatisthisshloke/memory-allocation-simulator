@@ -16,7 +16,7 @@ private:
 
     void showMenu();
 
-    Process* createProcess();
+    void createProcess();
     void allocateProcess(int* nextptr);
     void deallocateProcess(int* nextptr);
 
@@ -24,12 +24,13 @@ private:
     void showStatistics();
 
     void changeAlgorithm(
-        Process p,
         int* nextptr
     );
 
 public:
-    Simulator(int memory);
+    Simulator(int memory){
+
+    };
 
     void run(
         int* nextptr
