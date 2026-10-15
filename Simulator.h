@@ -24,7 +24,6 @@ private:
     void showStatistics();
 
     void changeAlgorithm(
-        std::vector<MemoryBlock>& memory,
         Process p,
         int* nextptr
     );
@@ -33,8 +32,6 @@ public:
     Simulator(int memory);
 
     void run(
-        std::vector<MemoryBlock>& memory,
-        Process p,
         int* nextptr
     );
 

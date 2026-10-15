@@ -38,10 +38,10 @@ void Simulator::showMenu()
 
 void Simulator::run(
     vector<MemoryBlock>& memory,
-    Process p,
     int* nextptr
 )
 {
+    Process* p;
     int choice;
     
     do {
@@ -52,22 +52,22 @@ void Simulator::run(
 
         switch(choice){
             case 1:
-                createProcess();
+                p = createProcess();
                 break;
             case 2:
-                allocateProcess(nextptr);
+                allocateProcess(*p, nextptr);
                 break;
             case 3:
-                deallocateProcess(nextptr);
+                deallocateProcess(*p, nextptr);
                 break;
             case 4:
-                displayMemory();
+                displayMemory(memory);
                 break;
             case 5:
-                showStatistics();
+                showStatistics(memory);
                 break;
             case 6:
-                Process *p = createProcess();
+                p = createProcess();
                 changeAlgorithm(memory, *p, nextptr);
                 break;
             case 7:
@@ -223,7 +223,6 @@ void Simulator::showStatistics(){
 }
 
 void Simulator::changeAlgorithm(
-    std::vector<MemoryBlock>& memory,
     Process p,
     int* nextptr
 )
