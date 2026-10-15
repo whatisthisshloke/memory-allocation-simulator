@@ -223,7 +223,7 @@ void Simulator::showStatistics(){
 }
 
 void Simulator::changeAlgorithm(
-    vector<MemoryBlock>& memory,
+    std::vector<MemoryBlock>& memory,
     Process p,
     int* nextptr
 )

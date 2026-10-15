@@ -16,19 +16,27 @@ private:
 
     void showMenu();
 
-    void createProcess();
+    Process* createProcess();
     void allocateProcess(int* nextptr);
     void deallocateProcess(int* nextptr);
 
     void displayMemory();
     void showStatistics();
 
-    void changeAlgorithm();
+    void changeAlgorithm(
+        std::vector<MemoryBlock>& memory,
+        Process p,
+        int* nextptr
+    );
 
 public:
     Simulator(int memory);
 
-    void run();
+    void run(
+        std::vector<MemoryBlock>& memory,
+        Process p,
+        int* nextptr
+    );
 
     ~Simulator();
 };
